@@ -1,0 +1,9 @@
+.idea/
+.DS_Store
+*.so
+*.dylib
+*.pyc
+*.egg-info/
+
+build/
+pybind11/
