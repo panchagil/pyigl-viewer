@@ -46,15 +46,18 @@ message("${LIBIGL_INCLUDE_DIR}")
 set(PYVIEWER_SOURCES
 	src/PyViewer.cpp
     src/PyViewer.h
-    src/FormHelper.cpp
-    src/FormHelper.h
+    src/imgui_helper.cpp
+    src/imgui_helper.h
     src/imgui_ext.h
     src/imgui_ext.cpp
     py/pyviewer.cpp
+    py/imgui.cpp
+    py/bindings.cpp
+    py/bindings.h
 )
 
 add_subdirectory(external/pybind11)
 pybind11_add_module(_pyviewer ${PYVIEWER_SOURCES})
-target_include_directories(_pyviewer PUBLIC "${PROJECT_SOURCE_DIR}/src")
+target_include_directories(_pyviewer PUBLIC "${PROJECT_SOURCE_DIR}/src" "${PROJECT_SOURCE_DIR}/py")
 target_link_libraries(_pyviewer PUBLIC igl::core igl::opengl igl::opengl_glfw igl::png igl::opengl_glfw_imgui)
 
