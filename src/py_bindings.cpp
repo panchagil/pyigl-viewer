@@ -1,5 +1,5 @@
 
-#include "bindings.h"
+#include "py_bindings.h"
 
 namespace py = pybind11;
 PYBIND11_PLUGIN(_pyviewer)

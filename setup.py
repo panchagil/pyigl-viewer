@@ -9,15 +9,12 @@ from pathlib import Path
 from setuptools import setup, find_packages, findall, Extension
 from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
-from distutils import log
-
 
 class CMakeExtension(Extension):
-    def __init__(self, name, lib_dir, sourcedir=''):
+    def __init__(self, name, sourcedir=''):
         Extension.__init__(self, name, sources=[])
         self.sourcedir = os.path.abspath(sourcedir)
         self.name = name
-        self.lib_dir = lib_dir
 
 
 class CMakeBuild(build_ext):
@@ -36,7 +33,6 @@ class CMakeBuild(build_ext):
 
         for ext in self.extensions:
             self.build_extension(ext)
-            # self.install_extension(ext)
 
     def finalize_options(self):
         super().finalize_options()
@@ -51,8 +47,7 @@ class CMakeBuild(build_ext):
     def build_extension(self, ext):
         extdir = os.path.abspath(
             os.path.dirname(self.get_ext_fullpath(ext.name)))
-        cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + extdir,
-                      '-DPYTHON_EXECUTABLE=' + sys.executable]
+        cmake_args = ['-DPYTHON_EXECUTABLE=' + sys.executable]
 
         cfg = 'Debug' if self.debug else 'Release'
         build_args = ['--config', cfg]
@@ -81,13 +76,6 @@ class CMakeBuild(build_ext):
                               cwd=self.build_temp)
         print()  # Add an empty line for cleaner output
 
-    # def install_extension(self, ext):
-    #     extname = os.path.abspath(self.get_ext_fullpath(ext.name))
-
-    #     lib_dir = os.path.join(ext.sourcedir, ext.lib_dir, ext.name) + ".so"
-    #     log.info("Copying file %s to '%s'", os.path.basename(extname), lib_dir)
-    #     shutil.copy(extname, lib_dir)
-
 
 def find_modules(dir=os.curdir):
     return [x for x in findall(dir) if os.path.splitext(x)[1] == '.py']
@@ -100,9 +88,7 @@ setup(
     author_email='franciscagil@nyu.edu',
     description='',
     long_description='',
-    scripts=find_modules('bin'),
-    package_dir={'': 'py'},
-    ext_modules=[CMakeExtension('pyviewer/_pyviewer', 'py')],
+    ext_modules=[CMakeExtension('pyviewer/_pyviewer')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
 )

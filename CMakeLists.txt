@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project(pyviewer)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/pyviewer/)
 ### Compilation flags: adapt to your needs ###
 if(UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++ -Wall -Wextra -pipe -fPIC")
@@ -44,16 +44,18 @@ find_package(LIBIGL REQUIRED QUIET)
 message("${LIBIGL_INCLUDE_DIR}")
 
 set(PYVIEWER_SOURCES
-	src/PyViewer.cpp
-    src/PyViewer.h
+    src/colormap.cpp
+    src/colormap.h
+    src/viewer.cpp
+    src/viewer.h
+    src/imgui_colorbar.cpp
+    src/imgui_colorbar.h
     src/imgui_helper.cpp
     src/imgui_helper.h
-    src/imgui_ext.h
-    src/imgui_ext.cpp
-    py/pyviewer.cpp
-    py/imgui.cpp
-    py/bindings.cpp
-    py/bindings.h
+    src/py_viewer.cpp
+    src/py_imgui.cpp
+    src/py_bindings.cpp
+    src/py_bindings.h
 )
 
 add_subdirectory(external/pybind11)
