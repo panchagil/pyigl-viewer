@@ -27,6 +27,7 @@ Since python doesn't handle int or doble pointers, I've used the same trick that
 ```python
 imgui.input_int("var1", *obj_accessors(app, "var1"))
 ```
+[![screenshot tool](https://github.com/panchagil/pyigl-viewer/wiki/images/viewer_menu.png)](https://github.com/panchagil/pyigl-viewer/wiki/images/viewer_menu.png)
 
 ## Source Code
 I've only wrapped a few functions of ImGui for now. The structure to wrap more is simple, so feel free to add yours and send a pull request.
