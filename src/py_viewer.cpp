@@ -22,6 +22,7 @@ void python_export_viewer(pybind11::module &m){
         .def("resume_rendering", &pyviewer::PyViewer::resume_rendering)
         .def("append_mesh", &pyviewer::PyViewer::append_mesh)
         .def("dirty", &pyviewer::PyViewer::dirty)
+        .def("set_flat_face_colors", &pyviewer::PyViewer::set_flat_face_colors)
         .def("move", &pyviewer::PyViewer::move)
         .def_readwrite("data_list", &pyviewer::PyViewer::data_list);
 

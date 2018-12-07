@@ -21,7 +21,7 @@ namespace pyviewer{
 
         ///@brief A hack to setup dirty flags (e.q to dirty|=flag)
         void dirty(unsigned long data_idx, igl::opengl::MeshGL::DirtyFlags flag);
-
+        void set_flat_face_colors(const unsigned long data_idx, const Eigen::MatrixXd& colors);
         ///@brief OpenGL context move
         void move(int x,int y);
 
