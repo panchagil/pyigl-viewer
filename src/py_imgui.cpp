@@ -42,6 +42,9 @@ void python_export_imgui(pybind11::module& m)
         .def("text", [](const std::string& text) {
             return ImGui::Text("%s", text.c_str());
         })
+        .def("text_colored", [](const ImVec4 color, const std::string& text) {
+            return ImGui::TextColored(color, "%s", text.c_str());
+        })
         // Widgets: Main
         .def("button", &ImGui::Button, //
             py::arg("label"), py::arg("size") = ImVec2(0, 0))
@@ -70,7 +73,9 @@ void python_export_imgui(pybind11::module& m)
             auto flags = default_open ? ImGuiTreeNodeFlags_DefaultOpen : !ImGuiTreeNodeFlags_DefaultOpen;
             return ImGui::CollapsingHeader(label, &p_open, flags);
         },
-            py::arg("label"), py::arg("p_open") = true, py::arg("default_open") = true);
+            py::arg("label"), py::arg("p_open") = true, py::arg("default_open") = true)
+
+        .def("want_capture_mouse", &pyviewer::imgui_helper::WantCaptureMouse);
 
     py::class_<pyviewer::ColorbarPlugin>(me, "ColorbarPlugin")
         .def(py::init<>())

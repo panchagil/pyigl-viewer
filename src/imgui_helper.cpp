@@ -80,5 +80,11 @@ namespace imgui_helper {
     {
         ImGui::End();
     }
+
+    bool WantCaptureMouse()
+    {
+        return ImGui::GetIO().WantCaptureMouse;
+    }
+
 }
 }
